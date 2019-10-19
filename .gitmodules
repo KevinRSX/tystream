@@ -1,0 +1,6 @@
+[submodule "/Users/kevinxue/Desktop/repositories/streaming-congestion-analytics/quic-streaming"]
+	path = /Users/kevinxue/Desktop/repositories/streaming-congestion-analytics/quic-streaming
+	url = git@github.com:KevinRSX/quic-streaming
+[submodule "/Users/kevinxue/Desktop/repositories/streaming-congestion-analytics/pensieve"]
+	path = /Users/kevinxue/Desktop/repositories/streaming-congestion-analytics/pensieve
+	url = git@github.com:KevinRSX/pensieve
