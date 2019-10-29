@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Dash.js Rocks</title>
+    <style>
+        video {
+            width: 640px;
+            height: 360px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <video id="videoPlayer" controls></video>
+    </div>
+    <h2 id="bitrate"></h2>
+    <h2 id="avgThr"></h2>
+    <script src="dash.all.min.js"></script>
+    <script type="application/javascript">
+        (function () {
+            var url = "video/Manifest.mpd";
+            var player = dashjs.MediaPlayer().create();
+            player.initialize(document.querySelector("#videoPlayer"), url, true);
+
+            var eBitrate = document.getElementById("bitrate");
+            var eAvgThr = document.getElementById("avgThr");
+
+            var refreshTimes= 1;
+            setInterval(function () {
+                
+                var currentQualityIndex = player.getQualityFor('video'); // get current quality index 
+                var currentQualityObject = player.getBitrateInfoListFor('video')[currentQualityIndex]; // returns array of all qualities
+                var bitrate = currentQualityObject.bitrate;
+                eBitrate.innerHTML = refreshTimes + ": The bitrate level is currently " + bitrate.toFixed(1);
+
+                var avgThr = player.getAverageThroughput('video');
+                eAvgThr.innerHTML = refreshTimes + ": The average throughput is currently " + avgThr.toFixed(1);
+
+                ++refreshTimes;
+            }, 1000)
+        })();
+    </script>
+</body>
+
+</html>
