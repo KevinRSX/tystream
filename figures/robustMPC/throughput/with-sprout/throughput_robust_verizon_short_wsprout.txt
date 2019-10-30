@@ -1,0 +1,18 @@
+For CUBIC
+Duration: 52.00s
+Mean throughput: 3.51Mbits/s
+Mean capacity: 5.14Mbits/s
+Utilization: 68.24%
+
+For BBR
+Duration: 51.00s
+Mean throughput: 3.42Mbits/s
+Mean capacity: 5.16Mbits/s
+Utilization: 66.20%
+
+For Sprout
+Duration: 65.00s
+Mean throughput: 0.43Mbits/s
+Mean capacity: 4.65Mbits/s
+Utilization: 9.30%
+

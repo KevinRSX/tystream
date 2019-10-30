@@ -1,0 +1,12 @@
+For CUBIC
+Duration: 190.63s
+Mean throughput: 0.59Mbits/s
+Mean capacity: 5.15Mbits/s
+Utilization: 11.52%
+
+For BBR
+Duration: 79.20s
+Mean throughput: 2.63Mbits/s
+Mean capacity: 4.30Mbits/s
+Utilization: 61.10%
+

@@ -1,0 +1,18 @@
+For fastMPC
+Duration: 64.00s
+Mean throughput: 3.95Mbits/s
+Mean capacity: 5.49Mbits/s
+Utilization: 71.98%
+
+For robustMPC
+Duration: 56.00s
+Mean throughput: 3.16Mbits/s
+Mean capacity: 4.92Mbits/s
+Utilization: 64.22%
+
+For RL
+Duration: 57.00s
+Mean throughput: 3.31Mbits/s
+Mean capacity: 4.94Mbits/s
+Utilization: 67.06%
+

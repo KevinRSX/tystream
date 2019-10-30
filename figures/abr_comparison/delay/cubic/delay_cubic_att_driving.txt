@@ -1,0 +1,15 @@
+For fastMPC:
+90 percentile delay: 568.8ms
+95 percentile delay: 829.5ms
+99 percentile delay: 1077.6ms
+
+For robustMPC:
+90 percentile delay: 538.8ms
+95 percentile delay: 844.4ms
+99 percentile delay: 1097.6ms
+
+For RL:
+90 percentile delay: 547.9ms
+95 percentile delay: 838.9ms
+99 percentile delay: 1083.8ms
+
