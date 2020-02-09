@@ -1,9 +1,0 @@
-For CUBIC:
-90 percentile delay: 77.5ms
-95 percentile delay: 97.8ms
-99 percentile delay: 160.4ms
-
-For BBR:
-90 percentile delay: 68.6ms
-95 percentile delay: 98.9ms
-99 percentile delay: 147.5ms
