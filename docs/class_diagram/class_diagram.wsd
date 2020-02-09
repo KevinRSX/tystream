@@ -1,0 +1,58 @@
+@startuml
+front.Window *-- front.TraceTuner
+front.Window *-- front.CCTuner
+front.Window *-- front.TransportTuner
+front.Window *-- front.ABRTuner
+
+back.VideoClient -- back.ABRServer
+back.VideoClient -- back.WebServer
+front.CCTuner -- back.WebServer
+front.TraceTuner -- back.WebServer
+front.TransportTuner -- back.WebServer
+front.ABRTuner -- back.ABRServer
+
+plotting.Algorithms -- plotting.RL
+plotting.Algorithms -- plotting.Mahimahi
+plotting.AgainstTraces --|> plotting.Algorithms
+plotting.AgainstCC --|> plotting.Algorithms
+plotting.AgainstTransport --|> plotting.Algorithms
+plotting.AgainstABR --|> plotting.Algorithms
+front.Window -- plotting.Algorithms
+
+simulation.Simulator -- front.Window
+
+class front.Window {
+    +startExperiment()
+    +startSimulation()
+    +startPlotting()
+}
+class front.TraceTuner {
+    +chooseTrace()
+}
+class front.CCTuner {
+    +chooseCC()
+}
+class front.TransportTuner {
+    +chooseTrace()
+}
+class front.ABRTuner {
+    +chooseABR()
+}
+
+
+class simulation.Simulator {
+    +calcTrace()
+    +logRes()
+}
+
+class back.VideoClient {
+    +connectABRServer()
+    +connectWebServer()
+}
+class back.ABRServer {
+    +serve()
+}
+class back.WebServer {
+    +serve()
+}
+@enduml

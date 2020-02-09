@@ -1,0 +1,12 @@
+@startuml
+autonumber
+Window -> Tuners: Adjust Variants
+Tuners -> Backend: Adjust Parameters
+Tuners -> Window: Parameter Ready
+Window -> ABRServer: Start Serving
+Window -> WebServer: Start Serving
+VideoClient -> ABRServer: Connect
+VideoClient -> ABRServer: Connect
+Window -> TraceRunnerExternal: Log network information
+
+@enduml
