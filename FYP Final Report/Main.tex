@@ -1,0 +1,72 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ELEE	3720 Electromechanical Energy Conversion: Report template
+% By Ratheesh Ravindran
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\graphicspath{{Images/}}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{hyperref}
+\usepackage{times}
+
+\renewcommand{\familydefault}{\rmdefault}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1.5}
+\setlength{\parindent}{0pt}%
+\usepackage{wrapfig}
+\usepackage[a4paper, textwidth=426pt]{geometry}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+\begin{document}
+
+
+\tableofcontents          % Required
+\listoffigures
+\listoftables
+\newpage
+
+% Do not edit the below sections, enter all details in respective chapters
+% Add the images/screen-shorts to the image folder and insert them in the respective chapters
+\section{Declaration}
+\input{Chapters/f01_Declaration}
+
+\section{Abstract}
+\input{Chapters/f02_Abstract}
+
+\section{Introduction}
+\input{Chapters/f03_Introduction}
+
+\section{Literature Review}
+\input{Chapters/f04_Literature_Review}
+
+\section{System Design}
+\input{Chapters/f05_System_Design}
+
+\bibliographystyle{plain}
+\bibliography{Bibliography.bib}
+
+\appendix
+\section{Appendix}
+\input{Chapters/f06_Appendix}
+
+
+%---------------------------------------------------------------------------------
+%	Example SECTION (Remove this section to finalize the report.
+
+
+% \section{Example steps}
+% \input{Chapters/Example} % Remove this line to finalize the report.
+%---------------------------------------------------------------------------------
+
+
+\end{document}
+
+
+% Note: Again, you don’t need to answer just the above questions. They are being provided to give you a flavor of what is required for each section. Use your judgment and initiative to add or subtract based on the specific homework. You can add any other conclusion or discuss any other aspect of your effort that you think it is important to highlight.
+
+% Also ensure to attach the MATLAB or MULTISIM files with this report
