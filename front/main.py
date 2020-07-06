@@ -33,13 +33,16 @@ while True:
                 continue
             if parse_retval[0] == -1: # exit
                 sys.exit(0)
-            if parse_retval[0] == 0:
+            if parse_retval[0] == 0: # config
                 if (parse_retval[1] == 'trace' and (parse_retval[2] not in supported_trace)) \
                 or (parse_retval[1] == 'transport' and (parse_retval[2] not in supported_transport)) \
                 or (parse_retval[1] == 'cc' and (parse_retval[2] not in supported_cc)) \
                 or (parse_retval[1] == 'abr' and (parse_retval[2] not in supported_abr)):
                     raise ConfigNotSupportedError()
                 tyui.set_config(parse_retval[1], parse_retval[2])
+            if parse_retval[0] == 1: # run exp
+                os.chdir('../experiments/scripts/trace_runner')
+                os.system('python run_quic_traces.py Verizon-LTE-driving test 1')
         except ArgNotCorrectError as e:
             print(str(e))
             print(cmd_error_message)
