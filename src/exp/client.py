@@ -1,0 +1,17 @@
+class Client:
+    def __init__(self, abr_rule):
+        if abr_rule == 'mpc':
+            self.abr = 'myindex_fastMPC'
+        elif abr_rule == 'robust_mpc':
+            self.abr = 'muindex_robustMPC'
+        elif abr_rule == 'pensieve':
+            self.abr == 'RL'
+    
+    def generate_client_cmd(self):
+        cmd_client = "google-chrome-stable \
+        --no-proxy-server \
+        --enable-quic \
+        --origin-to-force-quic-on=www.quictest.com:443 \
+        --host-resolver-rules='MAP www.quictest.com:443 100.64.0.1:6121' \
+        https://www.quictest.com/" + self.abr + '.html'
+        return cmd_client
