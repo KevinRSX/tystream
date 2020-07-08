@@ -7,7 +7,7 @@ class Emulator:
         return './cooked_traces/' + self.trace
     
     def log_location(self, id):
-        return './results/' + self.log + "_down" + str(id)
+        return './results/' + self.log + str(id)
     
     def generate_emulation_cmd(self, id):
         trace_loc = self.trace_location()

@@ -4,12 +4,14 @@ import os
 from exp.runner import Runner
 
 class QuicRunner(Runner):
-    def __init__(self, trace, abr, run_times):
-        Runner.__init__(self, trace, abr, run_times)
+    def __init__(self, config, run_times):
+        Runner.__init__(self, config, run_times)
         self.set_commands()
 
     def set_commands(self):
-        self.cmd_run = "python run_quic_traces.py " + str(self.trace) + " test " + str(self.run_times)
+        self.cmd_run = "python run_quic_traces.py " + str(self.trace) + \
+             " " + self.trace + "_quic_" + self.cc + "_" + self.abr + " " + \
+             str(self.run_times)
         pass
 
     def run(self):

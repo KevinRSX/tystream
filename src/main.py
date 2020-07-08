@@ -42,9 +42,8 @@ while True:
                     raise ConfigNotSupportedError()
                 tyui.set_config(parse_retval[1], parse_retval[2])
             if parse_retval[0] == 1: # run exp
-                # os.chdir('../experiments/scripts/trace_runner')
-                # os.system('python run_quic_traces.py Verizon-LTE-driving test 1')
-                runner = quic_runner.QuicRunner(tyui.config['trace'], tyui.config['abr'], parse_retval[1])
+                run_time = parse_retval[1]
+                runner = quic_runner.QuicRunner(tyui.config, parse_retval[1])
                 runner.run()
         except ArgNotCorrectError as e:
             print(str(e))

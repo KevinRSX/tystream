@@ -43,13 +43,13 @@ class TystreamUI:
             else:
                 raise ArgNotCorrectError(cmd_list[0])    
         elif cmd_list[0] == 'exp':
-            if len(cmd_list) != 3:
+            if len(cmd_list) != 2:
                 raise ArgNotCorrectError(cmd_list[0])
             try:
                 run_time = int(cmd_list[1])
             except ValueError:
                 raise ArgNotCorrectError(cmd_list[0])
-            return [1, run_time, cmd_list[2]]
+            return [1, run_time]
         elif cmd_list[0] == 'plot':
             if len(cmd_list) != 2:
                 raise ArgNotCorrectError(cmd_list[0])

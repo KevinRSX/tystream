@@ -3,13 +3,26 @@ import subprocess
 import time
 import signal
 import os
+import argparse
 
 import pyautogui
 
 from client import Client
+import abr_name_converter
 
-trace_name = sys.argv[1]
-cmd_rlserver = "python2 ./abr_server/mpc_server.py " + "qcubic_" + trace_name
+parser = argparse.ArgumentParser()
+parser.add_argument("abr")
+parser.add_argument("cc")
+parser.add_argument("transport")
+parser.add_argument("trace_name")
+parser.add_argument("id")
+args = parser.parse_args()
+trace_name = args.trace_name
+abr = args.abr
+transport = args.transport
+cc = args.cc
+id = args.id
+cmd_abrserver = "python2 ./abr_server/" + abr_name_converter.to_server(abr) + ".py " + transport + "_" + cc + "_" + trace_name + id
 
 # cmd_chrome = "google-chrome-stable \
 # --no-proxy-server \
@@ -21,10 +34,10 @@ cmd_rlserver = "python2 ./abr_server/mpc_server.py " + "qcubic_" + trace_name
 client = Client('mpc')
 cmd_client = client.generate_client_cmd()
 
-print(cmd_rlserver)
+print(cmd_abrserver)
 print(cmd_client)
 
-proc1 = subprocess.Popen("exec " + cmd_rlserver, shell=True)
+proc1 = subprocess.Popen("exec " + cmd_abrserver, shell=True)
 proc2 = subprocess.Popen("exec " + cmd_client, shell=True)
 time.sleep(2)
 pyautogui.click(102, 449)

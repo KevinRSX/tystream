@@ -1,11 +1,8 @@
+import abr_name_converter
+
 class Client:
     def __init__(self, abr_rule):
-        if abr_rule == 'mpc':
-            self.abr = 'myindex_fastMPC'
-        elif abr_rule == 'robust_mpc':
-            self.abr = 'muindex_robustMPC'
-        elif abr_rule == 'pensieve':
-            self.abr == 'RL'
+        self.abr = abr_name_converter.to_html(abr_rule)
     
     def generate_client_cmd(self):
         cmd_client = "google-chrome-stable \
