@@ -31,7 +31,7 @@ cmd_abrserver = "python2 ./abr_server/" + abr_name_converter.to_server(abr) + ".
 # --host-resolver-rules='MAP www.quictest.com:443 100.64.0.1:6121' \
 # https://www.quictest.com/myindex_fastMPC.html"
 
-client = Client('mpc')
+client = Client(abr, transport)
 cmd_client = client.generate_client_cmd()
 
 print(cmd_abrserver)

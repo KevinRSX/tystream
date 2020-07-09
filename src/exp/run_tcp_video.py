@@ -1,12 +1,40 @@
+import sys
+import subprocess
+import time
+import signal
 import os
-cmd_rlserver = "python ../rl_server/mpc_server.py tcp &"
+import argparse
 
-cmd_chrome = "google-chrome-stable \
---no-proxy-server \
-http://144.214.121.6/myindex_fastMPC.html"
+import pyautogui
 
-print(cmd_rlserver)
-print(cmd_chrome)
+from client import Client
+import abr_name_converter
 
-os.system(cmd_rlserver)
-os.system(cmd_chrome)
+parser = argparse.ArgumentParser()
+parser.add_argument("abr")
+parser.add_argument("cc")
+parser.add_argument("transport")
+parser.add_argument("trace_name")
+parser.add_argument("id")
+args = parser.parse_args()
+trace_name = args.trace_name
+abr = args.abr
+transport = args.transport
+cc = args.cc
+id = args.id
+cmd_abrserver = "python2 ./abr_server/" + abr_name_converter.to_server(abr) + ".py " + transport + "_" + cc + "_" + trace_name + id
+
+print(transport)
+client = Client(abr, transport)
+cmd_client = client.generate_client_cmd()
+
+print(cmd_abrserver)
+print(cmd_client)
+
+proc1 = subprocess.Popen("exec " + cmd_abrserver, shell=True)
+proc2 = subprocess.Popen("exec " + cmd_client, shell=True)
+time.sleep(2)
+pyautogui.click(102, 449)
+time.sleep(220)
+proc1.send_signal(signal.SIGINT)
+proc2.send_signal(signal.SIGINT)

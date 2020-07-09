@@ -5,12 +5,13 @@ import sys
 import front.ui as ui
 import front.dump_to_config as dump_to_config
 import exp.quic_runner as quic_runner
+import exp.tcp_runner as tcp_runner
 from front.front_exceptions import *
 
-supported_trace = ['trace1', 'trace2', 'trace3']
+supported_trace = ['Verizon-LTE-short', 'Verizon-LTE-driving', 'ATT-LTE-driving']
 supported_transport = ['tcp', 'quic']
 supported_cc = ['cubic', 'bbr']
-supported_abr = ['mpc', 'robust_mpc', 'pensieve']
+supported_abr = ['mpc', 'robustmpc', 'pensieve']
 
 welcome_message = "Welcome to tystream!"
 config_incomplete_message = 'Your configuration is incomplete, check config/config.json.\n\
@@ -43,7 +44,7 @@ while True:
                 tyui.set_config(parse_retval[1], parse_retval[2])
             if parse_retval[0] == 1: # run exp
                 run_time = parse_retval[1]
-                runner = quic_runner.QuicRunner(tyui.config, parse_retval[1])
+                runner = tcp_runner.TCPRunner(tyui.config, parse_retval[1])
                 runner.run()
         except ArgNotCorrectError as e:
             print(str(e))

@@ -1,7 +1,7 @@
 def to_server(original):
     if original == "mpc":
         return "mpc_server"
-    elif original == "robust_mpc":
+    elif original == "robustmpc":
         return "robust_mpc_server"
     elif original == "pensieve":
         return "rl_server_no_training"
@@ -11,9 +11,9 @@ def to_server(original):
 def to_html(original):
     if original == 'mpc':
         return 'myindex_fastMPC'
-    elif abr_rule == 'robust_mpc':
+    elif original == 'robustmpc':
         return 'myindex_robustMPC'
-    elif abr_rule == 'pensieve':
+    elif original == 'pensieve':
         return 'RL'
     else:
         return None
