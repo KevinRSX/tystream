@@ -58,11 +58,19 @@ while True:
             if parse_retval[0] == 1: # run exp
                 if not tyui.exp_config_complete(tyui.exp_config):
                     raise ConfigIncompleteError('exp')
+                for key, value in tyui.exp_config.items():
+                    if not tyui.exp_config_supported(key, value):
+                        raise ConfigNotSupportedError()
                 run_time = parse_retval[1]
-                runner = tcp_runner.TCPRunner(tyui.exp_config, parse_retval[1])
-                runner.run()
+                if tyui.exp_config['transport'] == 'quic':
+                    runner = quic_runner.QuicRunner(tyui.exp_config, parse_retval[1])
+                    runner.run()
+                elif tyui.exp_config['transport'] == 'tcp':
+                    runner = tcp_runner.TCPRunner(tyui.exp_config, parse_retval[1])
+                    runner.run()
+                
             if parse_retval[0] == 2: # vis
-                if len(parse_retval) > 1:
+                if len(parse_retval) > 1: # configure plotting parameters
                     continue
                 else:
                     print('Start Visualization..\n' + bcolors.OKGREEN + "Visualization arguments: " + str(tyui.plot_config) + bcolors.ENDC)

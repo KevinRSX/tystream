@@ -138,6 +138,7 @@ class TystreamUI:
                             temp_plot_config[key] = 'fixed'
                         elif key == var_parameter:
                             temp_plot_config[key] = cmd_list[-len_variable:]
+                    print(temp_plot_config)
                     if self.plot_config_supported(temp_plot_config):
                         self.set_plot_config(temp_plot_config)
                         return [2, 'CONFIG']

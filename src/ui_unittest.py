@@ -2,6 +2,7 @@ import unittest
 import os
 
 import front.ui as ui
+from front.front_exceptions import *
 
 class TestUI(unittest.TestCase):
     def test_config_nofile(self):
@@ -80,10 +81,45 @@ class TestUI(unittest.TestCase):
         }
         self.assertEqual(tyui.plot_config_supported(correct_but_not_supported_dict_plot), False)
 
-    
     def test_parse_command_nullstring(self):
         tyui = ui.TystreamUI()
         self.assertEqual(tyui.parse_command(''), [-2])
+
+    def test_exit(self):
+        tyui = ui.TystreamUI()
+        self.assertEqual(tyui.parse_command('exit'), [-1])
+        self.assertEqual(tyui.parse_command('quit'), [-1])
+    
+    def test_user_config_errors(self):
+        tyui = ui.TystreamUI()
+        self.assertRaises(ArgNotCorrectError, tyui.parse_command, 'config hello')
+        self.assertRaises(ArgNotCorrectError, tyui.parse_command, 'config net mpc')
+        self.assertRaises(ConfigNotSupportedError, tyui.parse_command, 'config transport udp')
+        self.assertRaises(ConfigNotSupportedError, tyui.parse_command, 'config transport udp')
+
+        self.assertRaises(ArgNotCorrectError, tyui.parse_command, 'exp 1 run')
+        self.assertRaises(ArgNotCorrectError, tyui.parse_command, 'exp trace')
+
+        self.assertRaises(ArgNotCorrectError, tyui.parse_command, 'plot config abr mpc robustmpc')
+        self.assertRaises(ArgNotCorrectError, tyui.parse_command, 'plot var abr mpc robustmpc')
+        self.assertRaises(ArgNotCorrectError, tyui.parse_command, 'plot dir abr mpc robustmpc')
+        self.assertRaises(ArgNotCorrectError, tyui.parse_command, 'plot dir 2 d1 d2 d3')
+        self.assertRaises(ArgNotCorrectError, tyui.parse_command, 'plot var abr 2 mpc robustmpc pensieve')
+
+    
+    def test_successful_config(self):
+        tyui = ui.TystreamUI()
+        self.assertEqual(tyui.parse_command('config transport quic'), [0, 'transport', 'quic'])
+
+    def test_successful_exp(self):
+        tyui = ui.TystreamUI()
+        self.assertEqual(tyui.parse_command('exp 5'), [1, 5])
+    
+    def test_successful_exp(self):
+        tyui = ui.TystreamUI()
+        self.assertEqual(tyui.parse_command('plot'), [2])
+        self.assertEqual(tyui.parse_command('plot var trace 2 Verizon-LTE-short ATT-LTE-driving'), [2, 'CONFIG'])
+
     
 
 if __name__ == '__main__':
