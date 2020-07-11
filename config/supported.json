@@ -1,0 +1,6 @@
+{
+    "trace": ["Verizon-LTE-short", "Verizon-LTE-driving", "ATT-LTE-driving"],
+    "transport": ["tcp", "quic"],
+    "cc": ["cubic", "bbr"],
+    "abr": ["mpc", "robustmpc", "pensieve"]
+}
