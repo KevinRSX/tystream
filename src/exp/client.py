@@ -16,5 +16,6 @@ class Client:
         elif self.transport == 'tcp':
             cmd_client = "google-chrome-stable \
                 --no-proxy-server \
+                --disable-application-cache \
                 http://100.64.0.1/" + self.abr + '.html'
         return cmd_client

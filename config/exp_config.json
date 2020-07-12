@@ -1,6 +1,6 @@
 {
-    "trace": "ATT-LTE-driving",
-    "transport": "quic",
+    "trace": "Verizon-LTE-driving",
+    "transport": "tcp",
     "cc": "cubic",
     "abr": "mpc"
 }

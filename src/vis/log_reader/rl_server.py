@@ -6,6 +6,8 @@ class RLReader:
         self.timestamps = []
         self.estimations = []
         self.all_qoe = []
+        self.bitrates = []
+
 
         with open(rl_log_path, 'r') as f:
             first_line = f.readline() # comment this if you need to read the first line
@@ -17,6 +19,7 @@ class RLReader:
                 self.timestamps.append(float(row[0]))
                 self.estimations.append(float(row[-2]) / 1000)
                 self.all_qoe.append(float(row[-1]))
+                self.bitrates.append(float(row[1]))
         
         self.mean_qoe = sum(self.all_qoe) / self.num_chunks
 

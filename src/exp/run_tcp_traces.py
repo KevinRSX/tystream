@@ -33,4 +33,4 @@ for id in range(1, run_times + 1):
 
     proc = subprocess.Popen(cmd_mm + ' ' + "python run_tcp_video.py " + abr + " " + cc + " tcp " + trace_name + " " + str(id), shell=True)
     proc.wait()
-    time.sleep(3)
+    time.sleep(1)

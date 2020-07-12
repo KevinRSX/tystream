@@ -6,6 +6,8 @@ import front.ui as ui
 import front.dump_to_config as dump_to_config
 import exp.quic_runner as quic_runner
 import exp.tcp_runner as tcp_runner
+import vis.link_util_visualizer as link_util_visualizer
+import vis.bitrate_selection_visualizer as bitrate_selection_visualizer
 from front.front_exceptions import *
 
 class bcolors:
@@ -74,6 +76,9 @@ while True:
                     continue
                 else:
                     print('Start Visualization..\n' + bcolors.OKGREEN + "Visualization arguments: " + str(tyui.plot_config) + bcolors.ENDC)
+                    vis = bitrate_selection_visualizer.BitrateSelectionVisualizer(tyui.plot_config)
+                    vis.visualize_and_save()
+
         except ArgNotCorrectError as e:
             print(str(e))
             print(cmd_error_message)
