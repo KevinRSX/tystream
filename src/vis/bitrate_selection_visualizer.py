@@ -15,11 +15,27 @@ class BitrateSelectionVisualizer(GenericVisualizer):
     
     def form_paths(self):
         self.rl_path = []
-        self.rl_trace = 'ATT-LTE-driving'
-        self.rl_transport = 'quic'
-        self.rl_cc = 'cubic'
+        # self.rl_trace = 'ATT-LTE-driving'
+        # self.rl_transport = 'quic'
+        # self.rl_cc = 'cubic'
+        self.rl_trace = self.internal_config['trace']
+        self.rl_transport = self.internal_config['transport']
+        self.rl_cc = self.internal_config['cc']
+        self.rl_abr = self.internal_config['abr']
+
         for i in range(len(self.variants)):
-            full_path = self.directories[i] + "log_" + name_converter.to_html(self.variants[i]).split('_')[-1] + '_' + self.rl_transport + '_' + self.rl_cc + '_' + self.rl_trace + '1'
+            if self.V == 'abr':
+                full_path = self.directories[i] + "log_" + name_converter.to_html(self.rl_abr[i]).split('_')[-1] + '_' + self.rl_transport + '_' + self.rl_cc + '_' + self.rl_trace + '1'
+                self.save_loc = 'vis/saved_images/bitrates_' + self.rl_trace + '_' + self.rl_transport + '_' + self.rl_cc + '.png'
+            elif self.V == 'cc':
+                full_path = self.directories[i] + "log_" + name_converter.to_html(self.rl_abr).split('_')[-1] + '_' + self.rl_transport + '_' + self.rl_cc[i] + '_' + self.rl_trace + '1'
+                self.save_loc = 'vis/saved_images/bitrates_' + self.rl_trace + '_' + self.rl_transport + '_' + self.rl_abr + '.png'
+            elif self.V == 'transport':
+                full_path = self.directories[i] + "log_" + name_converter.to_html(self.rl_abr).split('_')[-1] + '_' + self.rl_transport[i] + '_' + self.rl_cc + '_' + self.rl_trace + '1'
+                self.save_loc = 'vis/saved_images/bitrates_' + self.rl_trace + '_' + self.rl_cc + '_' + self.rl_abr + '.png'
+            elif self.V == 'trace':
+                full_path = self.directories[i] + "log_" + name_converter.to_html(self.rl_abr).split('_')[-1] + '_' + self.rl_transport + '_' + self.rl_cc + '_' + self.rl_trace[i] + '1'
+                self.save_loc = 'vis/saved_images/bitrates_' + self.rl_transport + '_' + self.rl_cc + '_' + self.rl_abr + '.png'
             self.rl_path.append(full_path)
     
     def process_data(self):
@@ -39,9 +55,9 @@ class BitrateSelectionVisualizer(GenericVisualizer):
         plt.legend(loc='upper right')
 
 
-        save_loc = 'vis/saved_images/bitrates_' + self.rl_trace + '_' + self.rl_transport + '_' + self.rl_cc + '.png'
-        print('Saving to ' + save_loc)
-        plt.savefig(save_loc)
+        # self.save_loc = 'vis/saved_images/bitrates_' + self.rl_trace + '_' + self.rl_transport + '_' + self.rl_cc + '.png'
+        print('Saving to ' + self.save_loc)
+        plt.savefig(self.save_loc)
 
         plt.show()
 

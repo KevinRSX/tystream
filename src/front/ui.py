@@ -113,11 +113,15 @@ class TystreamUI:
                 raise ArgNotCorrectError(cmd_list[0])
             return [1, run_time]
         elif cmd_list[0] == 'plot':
+            supported_vis = ['link_utilization', 'bitrate_selection', 'bandwidth_estimation', 'qoe']
             # plot, or
+            # plot link_utilization, or
             # plot var abr 2 mpc pensieve, or
             # plot dir 2 dir1 dir2
             if len(cmd_list) == 1:
-                return [2]
+                return [2] # plot link util by default
+            elif len(cmd_list) == 2 and (cmd_list[1] in supported_vis):
+                return [2, cmd_list[1]]
             elif cmd_list[1] != 'var' and cmd_list[1] != 'dir':
                 raise ArgNotCorrectError(cmd_list[0])
             elif cmd_list[1] == 'var':
@@ -165,15 +169,6 @@ class TystreamUI:
         self.exp_config[key] = value
         print(key + " is set to " + value)
         print('Experiment configuration: ' + str(self.exp_config))
-    
-    # def set_plot_config(self, key, value):
-    #     self.plot_config[key] = value
-    #     print(key + " is set to " + str(value))
-    #     print('Visualization configuration: ' + str(self.plot_config))
-    #     if not self.plot_config_complete(self.plot_config):
-    #         # did not use warnings.warn because it prints only once
-    #         print(bcolors.WARNING + "Warning: Note that the visualization configuration is not complete. " + \
-    #             "You won't be able to process and visualize the evaluation results until you align variable with directory correctly" + bcolors.ENDC)
     
     def set_plot_config(self, config):
         self.plot_config = config

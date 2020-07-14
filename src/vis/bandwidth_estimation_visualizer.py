@@ -75,11 +75,6 @@ class BandwidthEstimationVisualizer(GenericVisualizer):
         times, caps = mm.MMReader.get_lists_from_dict(self.capacity_dict, 1000)
         plt.fill_between(times, caps, 0, facecolor='pink', color='pink', alpha=0.3, label='capacity')
 
-        # for i in range(2):
-        #     times, dept = mm.MMReader.get_lists_from_dict(self.bw_dict[i], 1000)
-        #     dept = [x / 2 for x in dept]
-        #     print("Utilization of capacity of " + self.variants[i] + " = " + '{:.3f}'.format(np.sum(dept) / np.sum(caps)))
-        #     plt.plot(times, dept, label=self.variants[i])
         for i in range(2):
             times = self.all_estimations[i][0]
             estimations = self.all_estimations[i][1]
@@ -97,17 +92,3 @@ class BandwidthEstimationVisualizer(GenericVisualizer):
         plt.savefig(save_loc)
 
         plt.show()
-
-        
-
-if __name__ == '__main__':
-    bev = BandwidthEstimationVisualizer(
-        {
-            "trace": "fixed",
-            "transport": "fixed",
-            "cc": "fixed",
-            "abr": ["mpc", "robustmpc"],
-            "dir": ["exp/result/", "exp/result/"]
-        }
-    )
-    bev.visualize_and_save()

@@ -9,6 +9,7 @@ import exp.tcp_runner as tcp_runner
 import vis.link_util_visualizer as link_util_visualizer
 import vis.bitrate_selection_visualizer as bitrate_selection_visualizer
 import vis.bandwidth_estimation_visualizer as bandwidth_estimation_visualizer
+import vis.qoe_visualizer as qoe_visualizer
 from front.front_exceptions import *
 
 class bcolors:
@@ -65,6 +66,8 @@ while True:
                     if not tyui.exp_config_supported(key, value):
                         raise ConfigNotSupportedError()
                 run_time = parse_retval[1]
+                print(bcolors.BOLD + 'Start running experiment..\n' + bcolors.ENDC + \
+                    bcolors.OKGREEN + "Experiment arguments: " + str(tyui.exp_config) + bcolors.ENDC)
                 if tyui.exp_config['transport'] == 'quic':
                     runner = quic_runner.QuicRunner(tyui.exp_config, parse_retval[1])
                     runner.run()
@@ -73,11 +76,19 @@ while True:
                     runner.run()
                 
             if parse_retval[0] == 2: # vis
-                if len(parse_retval) > 1: # configure plotting parameters
+                if len(parse_retval) > 1 and parse_retval[1] == 'CONFIG': # configure plotting parameters
                     continue
                 else:
-                    print('Start Visualization..\n' + bcolors.OKGREEN + "Visualization arguments: " + str(tyui.plot_config) + bcolors.ENDC)
-                    vis = bandwidth_estimation_visualizer.BandwidthEstimationVisualizer(tyui.plot_config)
+                    print(bcolors.BOLD + 'Start visualization..\n' + bcolors.ENDC + \
+                        bcolors.OKGREEN + "Visualization arguments: " + str(tyui.plot_config) + bcolors.ENDC)
+                    if len(parse_retval) == 1 or parse_retval[1] == 'link_utilization':
+                        vis = link_util_visualizer.LinkUtilVisualizer(tyui.plot_config)
+                    elif parse_retval[1] == 'bitrate_selection':
+                        vis = bitrate_selection_visualizer.BitrateSelectionVisualizer(tyui.plot_config)
+                    elif parse_retval[1] == 'bandwidth_estimation':
+                        vis = bandwidth_estimation_visualizer.BandwidthEstimationVisualizer(tyui.plot_config)
+                    elif parse_retval[1] == 'qoe':
+                        vis = qoe_visualizer.QoeVisualizer(tyui.config)
                     vis.visualize_and_save()
 
         except ArgNotCorrectError as e:
