@@ -15,9 +15,6 @@ class BitrateSelectionVisualizer(GenericVisualizer):
     
     def form_paths(self):
         self.rl_path = []
-        # self.rl_trace = 'ATT-LTE-driving'
-        # self.rl_transport = 'quic'
-        # self.rl_cc = 'cubic'
         self.rl_trace = self.internal_config['trace']
         self.rl_transport = self.internal_config['transport']
         self.rl_cc = self.internal_config['cc']
@@ -54,8 +51,6 @@ class BitrateSelectionVisualizer(GenericVisualizer):
         plt.ylabel("bitrate (kbps)")
         plt.legend(loc='upper right')
 
-
-        # self.save_loc = 'vis/saved_images/bitrates_' + self.rl_trace + '_' + self.rl_transport + '_' + self.rl_cc + '.png'
         print('Saving to ' + self.save_loc)
         plt.savefig(self.save_loc)
 

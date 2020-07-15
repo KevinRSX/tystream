@@ -18,19 +18,39 @@ class BandwidthEstimationVisualizer(GenericVisualizer):
     
     def form_paths(self):
         self.mm_path = []
-        self.mm_trace = 'Verizon-LTE-short'
-        self.mm_transport = 'quic'
-        self.mm_cc = 'cubic'
+        self.mm_trace = self.internal_config['trace']
+        self.mm_transport = self.internal_config['transport']
+        self.mm_cc = self.internal_config['cc']
+        self.mm_abr = self.internal_config['abr']
         for i in range(len(self.variants)):
-            full_path = self.directories[i] + self.mm_trace + '_' + self.mm_transport + '_' + self.mm_cc + '_' + self.variants[i]
+            if self.V == 'abr':
+                full_path = self.directories[i] + self.mm_trace + '_' + self.mm_transport + '_' + self.mm_cc + '_' + self.mm_abr[i]
+            elif self.V == 'transport':
+                full_path = self.directories[i] + self.mm_trace + '_' + self.mm_transport[i] + '_' + self.mm_cc + '_' + self.mm_abr
+            elif self.V == 'trace':
+                full_path = self.directories[i] + self.mm_trace[i] + '_' + self.mm_transport + '_' + self.mm_cc + '_' + self.mm_abr
+            elif self.V == 'cc':
+                full_path = self.directories[i] + self.mm_trace + '_' + self.mm_transport + '_' + self.mm_cc[i] + '_' + self.mm_abr
             self.mm_path.append(full_path)
         
         self.rl_path = []
-        self.rl_trace = 'Verizon-LTE-short'
-        self.rl_transport = 'quic'
-        self.rl_cc = 'cubic'
+        self.rl_trace = self.internal_config['trace']
+        self.rl_transport = self.internal_config['transport']
+        self.rl_cc = self.internal_config['cc']
+        self.rl_abr = self.internal_config['abr']
         for i in range(len(self.variants)):
-            full_path = self.directories[i] + "log_" + name_converter.to_html(self.variants[i]).split('_')[-1] + '_' + self.rl_transport + '_' + self.rl_cc + '_' + self.rl_trace
+            if self.V == 'abr':
+                full_path = self.directories[i] + "log_" + name_converter.to_html(self.rl_abr[i]).split('_')[-1] + '_' + self.rl_transport + '_' + self.rl_cc + '_' + self.rl_trace
+                self.save_loc = 'vis/saved_images/bw_est_' + self.rl_trace + '_' + self.rl_transport + '_' + self.rl_cc + '.png'
+            elif self.V == 'cc':
+                full_path = self.directories[i] + "log_" + name_converter.to_html(self.rl_abr).split('_')[-1] + '_' + self.rl_transport + '_' + self.rl_cc[i] + '_' + self.rl_trace
+                self.save_loc = 'vis/saved_images/bw_est_' + self.rl_trace + '_' + self.rl_transport + '_' + self.rl_abr + '.png'
+            elif self.V == 'transport':
+                full_path = self.directories[i] + "log_" + name_converter.to_html(self.rl_abr).split('_')[-1] + '_' + self.rl_transport[i] + '_' + self.rl_cc + '_' + self.rl_trace
+                self.save_loc = 'vis/saved_images/bw_est_' + self.rl_trace + '_' + self.rl_cc + '_' + self.rl_abr + '.png'
+            elif self.V == 'trace':
+                full_path = self.directories[i] + "log_" + name_converter.to_html(self.rl_abr).split('_')[-1] + '_' + self.rl_transport + '_' + self.rl_cc + '_' + self.rl_trace[i]
+                self.save_loc = 'vis/saved_images/bw_est_' + self.rl_transport + '_' + self.rl_cc + '_' + self.rl_abr + '.png'
             self.rl_path.append(full_path)
     
     def process_data(self):
@@ -87,8 +107,7 @@ class BandwidthEstimationVisualizer(GenericVisualizer):
         plt.ylabel("throughput(Mbits/s)")
         plt.legend(loc='upper right')
 
-        save_loc = 'vis/saved_images/bw_est_' + self.mm_trace + '_' + self.mm_transport + '_' + self.mm_cc + '.png'
-        print('Saving to ' + save_loc)
-        plt.savefig(save_loc)
+        print('Saving to ' + self.save_loc)
+        plt.savefig(self.save_loc)
 
         plt.show()

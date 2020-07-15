@@ -96,6 +96,8 @@ class TystreamUI:
         if cmd_list[0] == 'quit' or cmd_list[0] == 'exit':
             return [-1]
         elif cmd_list[0] == 'config':
+            if len(cmd_list) == 1:
+                return [0]
             if len(cmd_list) != 3:
                 raise ArgNotCorrectError(cmd_list[0])
             if (cmd_list[1] == 'trace') or (cmd_list[1] == 'transport') or (cmd_list[1] == 'cc') or (cmd_list[1] == 'abr'):
@@ -167,12 +169,12 @@ class TystreamUI:
     
     def set_exp_config(self, key, value):
         self.exp_config[key] = value
-        print(key + " is set to " + value)
-        print('Experiment configuration: ' + str(self.exp_config))
+        print(bcolors.OKBLUE + key + " is set to " + value)
+        print('Experiment configuration: ' + str(self.exp_config) + bcolors.ENDC)
     
     def set_plot_config(self, config):
         self.plot_config = config
-        print('Visualization configuration set to: ' + str(self.plot_config))
+        print(bcolors.OKBLUE + 'Visualization configuration set to: ' + str(self.plot_config) + bcolors.ENDC)
         if not self.plot_config_complete(self.plot_config):
             # did not use warnings.warn because it prints only once
             print(bcolors.WARNING + "Warning: Note that the visualization configuration is not complete. " + \

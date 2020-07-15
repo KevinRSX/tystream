@@ -48,6 +48,7 @@ else:
     print('Visualization configuration: ' + str(tyui.plot_config))
 
 
+exp_already_run = False # controls internal config of vis
 while True:
     try:
         command = input('tystream> ')
@@ -58,7 +59,11 @@ while True:
             if parse_retval[0] == -1: # exit
                 sys.exit(0)
             if parse_retval[0] == 0: # config
-                tyui.set_exp_config(parse_retval[1], parse_retval[2])
+                if len(parse_retval) == 1:
+                    print('Experiment configuration: ' + str(tyui.exp_config))
+                    print('Visualization configuration: ' + str(tyui.plot_config))
+                else:
+                    tyui.set_exp_config(parse_retval[1], parse_retval[2])
             if parse_retval[0] == 1: # run exp
                 if not tyui.exp_config_complete(tyui.exp_config):
                     raise ConfigIncompleteError('exp')
@@ -74,6 +79,7 @@ while True:
                 elif tyui.exp_config['transport'] == 'tcp':
                     runner = tcp_runner.TCPRunner(tyui.exp_config, parse_retval[1])
                     runner.run()
+                exp_already_run = True
                 
             if parse_retval[0] == 2: # vis
                 if len(parse_retval) > 1 and parse_retval[1] == 'CONFIG': # configure plotting parameters
@@ -89,6 +95,10 @@ while True:
                         vis = bandwidth_estimation_visualizer.BandwidthEstimationVisualizer(tyui.plot_config)
                     elif parse_retval[1] == 'qoe':
                         vis = qoe_visualizer.QoeVisualizer(tyui.config)
+                    if exp_already_run:
+                        vis.set_internal_config(exp_config)
+                    else:
+                        print(bcolors.UNDERLINE + "Using default visualization configuration: " + bcolors.ENDC + bcolors.OKGREEN + str(vis.internal_config) + bcolors.ENDC)
                     vis.visualize_and_save()
 
         except ArgNotCorrectError as e:
