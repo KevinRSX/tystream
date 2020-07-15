@@ -35,4 +35,4 @@ Tested on: Ubuntu 18.04
 
 ## Acknowledgement
 
-`Dash.js` and video files in `www.quictest.com` are provided by [Pensieve](https://github.com/hongzimao/pensieve) with minor modifications. We also learn from Pensieve's evaluation code when designing the work flow of this project.
+`Dash.js` and video files in `www.quictest.com` , and decision servers in`abr_servers/`are provided by [Pensieve](https://github.com/hongzimao/pensieve) with a few modifications. We also learn from Pensieve's evaluation code when designing the work flow of this project.
