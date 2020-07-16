@@ -127,11 +127,15 @@ class TystreamUI:
             elif cmd_list[1] != 'var' and cmd_list[1] != 'dir':
                 raise ArgNotCorrectError(cmd_list[0])
             elif cmd_list[1] == 'var':
-                if (cmd_list[2] == 'trace') or (cmd_list[2] == 'transport') or (cmd_list[2] == 'cc') or (cmd_list[2] == 'abr'):
+                if (cmd_list[2] != 'trace') and (cmd_list[2] == 'transport') and (cmd_list[2] == 'cc') and (cmd_list[2] == 'abr'):
+                    raise ArgNotCorrectError(cmd_list[0])
+                elif (cmd_list[2] == 'trace') or (cmd_list[2] == 'transport') or (cmd_list[2] == 'cc') or (cmd_list[2] == 'abr'):
                     try:
                         var_parameter = cmd_list[2]
                         len_variable = int(cmd_list[3])
                     except ValueError:
+                        raise ArgNotCorrectError(cmd_list[0])
+                    except IndexError:
                         raise ArgNotCorrectError(cmd_list[0])
                     if len(cmd_list) != 4 + len_variable:
                         raise ArgNotCorrectError(cmd_list[0])
@@ -156,6 +160,8 @@ class TystreamUI:
                 try:
                     len_dir = int(cmd_list[2])
                 except ValueError:
+                    raise ArgNotCorrectError(cmd_list[0])
+                except IndexError:
                     raise ArgNotCorrectError(cmd_list[0])
                 if len(cmd_list) != 3 + len_dir:
                     raise ArgNotCorrectError(cmd_list[0])
