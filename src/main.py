@@ -94,7 +94,7 @@ while True:
                     elif parse_retval[1] == 'bandwidth_estimation':
                         vis = bandwidth_estimation_visualizer.BandwidthEstimationVisualizer(tyui.plot_config)
                     elif parse_retval[1] == 'qoe':
-                        vis = qoe_visualizer.QoeVisualizer(tyui.config)
+                        vis = qoe_visualizer.QoeVisualizer(tyui.plot_config)
                     if exp_already_run:
                         vis.set_internal_config(exp_config)
                     else:

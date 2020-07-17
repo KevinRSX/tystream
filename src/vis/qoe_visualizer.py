@@ -54,6 +54,6 @@ class QoeVisualizer(GenericVisualizer):
 
         # save_loc = 'vis/saved_images/qoe_' + self.rl_trace + '_' + self.rl_transport + '_' + self.rl_cc + '.png'
         print('Saving to ' + self.save_loc)
-        plt.savefig(save_loc)
+        plt.savefig(self.save_loc)
 
         plt.show()
